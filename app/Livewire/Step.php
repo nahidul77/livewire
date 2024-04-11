@@ -6,11 +6,16 @@ use Livewire\Component;
 
 class Step extends Component
 {
-    public $steps = 0;
+    public $steps = [];
 
     public function increment()
     {
-        $this->steps++;
+        $this->steps[] = count($this->steps);
+    }
+
+    public function remove($index)
+    {
+        unset($this->steps[$index]); 
     }
 
     public function render()
