@@ -31,5 +31,5 @@
                 <p class="text-gray-800">{{ $comment->body }}</p>
             </div>
         @endforeach
-        {{ $comments->links() }}
+        {{ $comments->links('pagination-links') }}
     </div>
