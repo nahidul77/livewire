@@ -12,6 +12,13 @@
             @endif
         </div>
 
+        <section>
+            @if ($image)
+                <img src={{ $image }} width="200" />
+            @endif
+            <input type="file" id="image" wire:change="$dispatch('fileChoosen')">
+        </section>
+
         <form class="my-4 flex" wire:submit.prevent="addComment">
             <input type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="What's in your mind."
                 wire:model.live.debounce.500ms="newComment">
@@ -33,3 +40,16 @@
         @endforeach
         {{ $comments->links('pagination-links') }}
     </div>
+
+
+    <script>
+        Livewire.on('fileChoosen', () => {
+            let inputField = document.getElementById('image')
+            let file = inputField.files[0]
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                Livewire.dispatch('fileUpload', reader.result)
+            }
+            reader.readAsDataURL(file);
+        })
+    </script>
